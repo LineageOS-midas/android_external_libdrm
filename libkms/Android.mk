@@ -7,6 +7,7 @@ nouveau_drivers := nouveau
 virgl_drivers := virgl
 vmwgfx_drivers := vmwgfx
 tegra_drivers := tegra
+exynos_drivers := exynos
 
 valid_drivers := \
 	$(intel_drivers) \
@@ -15,7 +16,8 @@ valid_drivers := \
 	$(nouveau_drivers) \
 	$(virgl_drivers) \
 	$(vmwgfx_drivers) \
-	$(tegra_drivers)
+	$(tegra_drivers) \
+	$(exynos_drivers)
 
 # warn about invalid drivers
 invalid_drivers := $(filter-out $(valid_drivers), $(DRM_GPU_DRIVERS))
@@ -46,6 +48,10 @@ endif
 
 ifneq ($(filter $(radeon_drivers), $(DRM_GPU_DRIVERS)),)
 LOCAL_SRC_FILES += $(LIBKMS_RADEON_FILES)
+endif
+
+ifneq ($(filter $(exynos_drivers), $(DRM_GPU_DRIVERS)),)
+LOCAL_SRC_FILES += $(LIBKMS_EXYNOS_FILES)
 endif
 
 LOCAL_MODULE := libkms
